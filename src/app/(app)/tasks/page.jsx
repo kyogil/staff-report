@@ -77,7 +77,7 @@ const TaskDialog = ({ open, onOpenChange, task, onSave }) => {
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-[425px]">
         <DialogHeader>
-          <DialogTitle>{task ? 'Edit Task' : 'Create New Task'}</DialogTitle>
+          <DialogTitle>{task ? 'Ubah Tugas' : 'Tambah Tugas Baru'}</DialogTitle>
           <DialogDescription>
             {task ? "Update the details of your task." : "Fill in the details for your new task."}
           </DialogDescription>
@@ -85,23 +85,23 @@ const TaskDialog = ({ open, onOpenChange, task, onSave }) => {
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="nama_task" className="text-right">Task Name</Label>
+              <Label htmlFor="nama_task" className="text-right">Judul Tugas</Label>
               <Input id="nama_task" value={formData.nama_task || ''} onChange={handleChange} className="col-span-3" required />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="deskripsi" className="text-right">Description</Label>
+              <Label htmlFor="deskripsi" className="text-right">Deskripsi</Label>
               <Textarea id="deskripsi" value={formData.deskripsi || ''} onChange={handleChange} className="col-span-3" required />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="tanggal_mulai" className="text-right">Start Date</Label>
+              <Label htmlFor="tanggal_mulai" className="text-right">Tanggal Diterima</Label>
               <Input id="tanggal_mulai" type="datetime-local" value={formData.tanggal_mulai || ''} onChange={handleDateChange} className="col-span-3" required />
             </div>
             <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="tanggal_selesai" className="text-right">End Date</Label>
+              <Label htmlFor="tanggal_selesai" className="text-right">Tanggal Selesai</Label>
               <Input id="tanggal_selesai" type="datetime-local" value={formData.tanggal_selesai ? new Date(formData.tanggal_selesai).toISOString().slice(0, 16) : ''} onChange={handleDateChange} className="col-span-3" />
             </div>
              <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="hasil" className="text-right">Result</Label>
+              <Label htmlFor="hasil" className="text-right">Hasil</Label>
               <Textarea id="hasil" value={formData.hasil || ''} onChange={handleChange} className="col-span-3" />
             </div>
           </div>
@@ -178,7 +178,7 @@ export default function TasksPage() {
   return (
     <div className="container mx-auto py-10">
       <header className="flex justify-between items-center mb-4">
-        <h1 className="text-2xl font-bold">My Daily Tasks</h1>
+        <h1 className="text-2xl font-bold">Daftar Tugas Harian</h1>
         <div className="flex items-center gap-4">
            <Select onValueChange={setFilter} defaultValue="all">
             <SelectTrigger className="w-[180px]">
@@ -190,7 +190,7 @@ export default function TasksPage() {
               <SelectItem value="completed">Completed</SelectItem>
             </SelectContent>
           </Select>
-          <Button onClick={openNewTaskDialog}>Create New Task</Button>
+          <Button onClick={openNewTaskDialog}>Tambah Tugas Baru</Button>
         </div>
       </header>
 
@@ -198,9 +198,9 @@ export default function TasksPage() {
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead>Task Name</TableHead>
-              <TableHead>Start Date</TableHead>
-              <TableHead>End Date</TableHead>
+              <TableHead>Judul Tugas</TableHead>
+              <TableHead>Tanggal Diterima</TableHead>
+              <TableHead>Tanggal Selesai</TableHead>
               <TableHead>Status</TableHead>
               <TableHead className="text-right">Actions</TableHead>
             </TableRow>

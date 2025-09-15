@@ -1,7 +1,7 @@
 import "./globals.css";
 
 export const metadata = {
-  title: "Daily Task Manager",
+  title: "Buku Kontrol",
   description: "A full-stack application to manage daily tasks.",
 };
 
