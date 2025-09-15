@@ -81,7 +81,7 @@ const TaskDialog = ({ open, onOpenChange, task, onSave }) => {
           <DialogDescription>
             {task ? "Update the details of your task." : "Fill in the details for your new task."}
           </DialogDescription>
-        </DialogHeader>
+        </Header>
         <form onSubmit={handleSubmit}>
           <div className="grid gap-4 py-4">
             <div className="grid grid-cols-4 items-center gap-4">
