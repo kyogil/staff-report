@@ -42,11 +42,11 @@ export default function Navbar() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center space-x-8">
             <Link href="/tasks" className="font-bold text-xl text-gray-800 dark:text-white">
-              Buku Kontrol
+              Task Manager
             </Link>
             <div className="hidden md:flex items-center space-x-4">
               <Link href="/tasks" className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">
-                Tugas Saya
+                My Tasks
               </Link>
               {user?.role === 'ADMIN' && (
                 <Link href="/admin/dashboard" className="text-gray-600 dark:text-gray-300 hover:text-blue-500 dark:hover:text-blue-400">

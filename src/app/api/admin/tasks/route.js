@@ -27,6 +27,7 @@ export async function GET(req) {
   const { searchParams } = new URL(req.url);
   const divisionId = searchParams.get('divisionId');
   const userId = searchParams.get('userId');
+  const month = searchParams.get('month'); // YYYY-MM format
 
   let query = `
     SELECT
@@ -52,6 +53,16 @@ export async function GET(req) {
   } else if (divisionId && divisionId !== 'all') {
     whereClauses.push(`p.divisi_id = $${paramIndex}`);
     queryParams.push(divisionId);
+    paramIndex++;
+  }
+
+  if (month && month !== 'all') {
+    const [year, monthNum] = month.split('-');
+    whereClauses.push(`EXTRACT(YEAR FROM t.tanggal_mulai) = $${paramIndex}`);
+    queryParams.push(year);
+    paramIndex++;
+    whereClauses.push(`EXTRACT(MONTH FROM t.tanggal_mulai) = $${paramIndex}`);
+    queryParams.push(monthNum);
     paramIndex++;
   }
 

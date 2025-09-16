@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback, useMemo } from 'react';
 import {
   Table,
   TableBody,
@@ -23,9 +23,26 @@ export default function AdminDashboardPage() {
   const [divisions, setDivisions] = useState([]);
   const [users, setUsers] = useState([]);
 
-  const [filters, setFilters] = useState({ divisionId: 'all', userId: 'all' });
+  const [filters, setFilters] = useState({ divisionId: 'all', userId: 'all', month: 'all' });
   const [loading, setLoading] = useState(true);
   const router = useRouter();
+
+  // Generate a list of months for the filter
+  const monthOptions = useMemo(() => {
+    const options = [];
+    const d = new Date();
+    for (let i = 0; i < 12; i++) {
+      const month = d.getMonth() + 1;
+      const year = d.getFullYear();
+      const monthPadded = String(month).padStart(2, '0');
+      options.push({
+        value: `${year}-${monthPadded}`,
+        label: d.toLocaleString('default', { month: 'long', year: 'numeric' }),
+      });
+      d.setMonth(d.getMonth() - 1);
+    }
+    return options;
+  }, []);
 
   // Fetch divisions for the filter dropdown
   useEffect(() => {
@@ -69,6 +86,7 @@ export default function AdminDashboardPage() {
       const params = new URLSearchParams();
       if (filters.divisionId !== 'all') params.append('divisionId', filters.divisionId);
       if (filters.userId !== 'all') params.append('userId', filters.userId);
+      if (filters.month !== 'all') params.append('month', filters.month);
 
       const res = await fetch(`/api/admin/tasks?${params.toString()}`);
       if (!res.ok) {
@@ -102,6 +120,15 @@ export default function AdminDashboardPage() {
       <header className="flex justify-between items-center mb-4">
         <h1 className="text-2xl font-bold">Admin Dashboard: All Tasks</h1>
         <div className="flex items-center gap-4">
+          <Select onValueChange={(value) => handleFilterChange('month', value)} value={filters.month}>
+            <SelectTrigger className="w-[180px]">
+              <SelectValue placeholder="Filter by Month" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="all">All Months</SelectItem>
+              {monthOptions.map(opt => <SelectItem key={opt.value} value={opt.value}>{opt.label}</SelectItem>)}
+            </SelectContent>
+          </Select>
           <Select onValueChange={(value) => handleFilterChange('divisionId', value)} value={filters.divisionId}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Filter by Division" />
