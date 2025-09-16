@@ -33,6 +33,8 @@ export async function GET(req) {
     SELECT
       t.id,
       t.nama_task,
+      t.deskripsi,
+      t.hasil,
       t.tanggal_mulai,
       t.tanggal_selesai,
       p.nama as pengguna_nama,
